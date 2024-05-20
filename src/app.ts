@@ -1,19 +1,19 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
+
+import { StudentRoute } from "./app/modules/student/student.route";
 const app: Application = express();
-const port = 3000;
+
 
 app.use(express.json());
 app.use(cors());
+app.use('/api/v1/students', StudentRoute)
 
-app.get("/", (req: Request, res: Response) => {
+const getAController = (req: Request, res: Response) => {
   const a = 10;
-
+  res.send('Hello World!')
   res.send(a);
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+}
+app.get("/", getAController);
 
 export default app;
