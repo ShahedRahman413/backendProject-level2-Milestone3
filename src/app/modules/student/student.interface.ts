@@ -1,5 +1,8 @@
+import { string } from "joi";
+import { Model, Types } from "mongoose";
+import { never } from "zod";
 
-export interface Guardian {
+export interface TGuardian {
     fatherName: string;
     fatherOccupation: string;
     fatherContactNo: string;
@@ -7,12 +10,12 @@ export interface Guardian {
     motherOccupation: string;
     motherContactNo: string;
 }
-export interface UserName {
+export interface TUserName {
     firstName: string;
     middleName: string,
     lastName: string
 };
-export interface LocalGuardian {
+export interface TLocalGuardian {
     name: string;
     occupation: string;
     contactNo: string;
@@ -20,19 +23,41 @@ export interface LocalGuardian {
 
 }
 
-export interface Student {
+export interface TStudent {
     id: string;
-    name: UserName;
+    user: Types.ObjectId;
+    password: string;
+    name: TUserName;
     gender: "male" | "female";
-    dateOfBirth?: string;
+    dateOfBirth?: Date;
     email: string;
     contactNumber: string;
     emergencyNumber: string
     bloodGroup?: "A+" | "A-" | "B+" | "B-" | "AB+" | "AB-" | "O+" | "O-";
     presentAddress: string;
     permanentAddress: string;
-    guardian: Guardian;
-    localGuardian: LocalGuardian;
+    guardian: TGuardian;
+    localGuardian: TLocalGuardian;
     profileImage?: string;
-    isActive: "active" | "inactive"
+    isDeleted: boolean
 }
+
+
+
+//for creating static
+
+export interface StudentModel extends Model<TStudent> {
+    isUserExists(id: string): Promise<TStudent | null>
+}
+
+
+
+
+
+
+//for creating instance
+// export type StudentMethod = {
+//     isUserExists(id: string): Promise<TStudent | null>
+// }
+
+// export type ModelStudent = Model<TStudent, Record<string, never>, StudentMethod>
