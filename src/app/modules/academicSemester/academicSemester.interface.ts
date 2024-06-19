@@ -10,7 +10,7 @@ export type TAcademicSemesterNameCodeMapper = {
 export type TAcademicSemester = {
     name: TAcademicsSemesterName,
     code: TAcademicsSemesterCode,
-    year: String,
+    year: string,
     startMonth: TMonths,
     endMonth: TMonths
 

@@ -11,7 +11,7 @@ const createAcademicSemesterIntoDB = async (payLoad: TAcademicSemester) => {
 
 
     if (academicSemesterNameCodeMapper[payLoad.name] !== payLoad.code) {
-
+        throw new Error("Invalid semester name or code");
     }
     const result = await AcademicSemesterModel.create(payLoad);
     return result
